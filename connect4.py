@@ -25,9 +25,11 @@ def getNextOpenRow(board, column):
         if board[r][column] == 0:
             return r
 
+#Print the Board so that the first value is at the bottom
 def printBoard(board):
     print(np.flip(board, 0))
 
+#Check for winning move in the horizontal, vertical and diaganol
 def winningMove(board, piece):
     #check horizontal locations for win
     for c in range(ColumnCount - 3):
@@ -82,7 +84,6 @@ while not gameOver:
                     print("Player 1 WINS!!!")
                     gameOver = True
 
-
     #Ask for Player 2 Input
     else:
         print("",np.array([0.,1.,2.,3.,4.,5.,6.]))
@@ -111,7 +112,3 @@ while not gameOver:
 
     Player += 1
     Player = Player%2
-
-
-
-
