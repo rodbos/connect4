@@ -1,15 +1,22 @@
+"""
+This is a python script that creates a command line vesrsion of the connect 4 game.  The script
+draws a board and allows two players to take turns placings pieces on the board.  The first player
+to get 4 across or diagonal wins.
+"""
 import numpy as np
 RowCount = 6
 ColumnCount = 7
 
-
+#draw the board using the numpy zeros function
 def drawBoard():
     board = np.zeros((RowCount,ColumnCount))
     return board
 
+#Add the pieces to the board
 def addPiece(board, row, column, piece):
     board[row][column] = piece
 
+#Verifying that the location is valid
 def validLocation(board, column):
     return board[RowCount - 1][column] == 0
 
@@ -54,20 +61,44 @@ while not gameOver:
     #Ask for Player 1 Input
     if Player == 0:
         print("",np.array([0.,1.,2.,3.,4.,5.,6.]))
-        column = int(input("Player 1 Maker your Selection (0-6):"))
-        if validLocation(board, column):
-            row = getNextOpenRow(board, column)
-            addPiece(board, row, column, 1)
+        while True:
+            try:
+                column = int(input("Player 1 Maker your Selection (0-6):"))
+            except ValueError:
+                print("Sorry, I didn't understand that please make another selection.")
+                continue
+            else:
+                if column >= 0 and column <= 6:
+                    break
+                else:
+                    print("Sorry,",column,"is out the range of 0-6 please make another selection")
+                    continue
 
-            if winningMove(board, 1):
-                print("Player 1 WINS!!!")
-                gameOver = True
+        if validLocation(board, column):
+                row = getNextOpenRow(board, column)
+                addPiece(board, row, column, 1)
+
+                if winningMove(board, 1):
+                    print("Player 1 WINS!!!")
+                    gameOver = True
 
 
     #Ask for Player 2 Input
     else:
         print("",np.array([0.,1.,2.,3.,4.,5.,6.]))
-        column = int(input("Player 2 Maker your Selection (0-6):"))
+        while True:
+            try:
+                column = int(input("Player 2 Maker your Selection (0-6):"))
+            except ValueError:
+                print("Sorry, I didn't understand that please make another selection.")
+                continue
+            else:
+                if column >= 0 and column <= 6:
+                    break
+                else:
+                    print("Sorry,",column,"is out the range of 0-6 please make another selection")
+                    continue
+
         if validLocation(board, column):
             row = getNextOpenRow(board, column)
             addPiece(board, row, column, 2)
